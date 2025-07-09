@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chúc Mừng Sinh Nhật</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #000, #330033);
+      background-color: black;
+    }
+
+    h1 {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+      color: #ff99ff;
+      font-family: 'Segoe UI', cursive;
+      text-shadow: 2px 2px 5px black;
+      z-index: 1;
+    }
+
+    .blessing {
+      position: absolute;
+      font-size: 22px;
+      color: #ffccff;
+      font-family: 'Comic Sans MS', cursive;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(0);
+      transition: transform linear, opacity linear;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Chúc Mừng Sinh Nhật 🎉</h1>
+
+  <script>
+    const blessings = [
+      "Chúc bạn một sinh nhật tuyệt vời!",
+      "Mỗi ngày đều rạng rỡ như hôm nay!",
+      "Chúc bạn luôn cười thật tươi!",
+      "Sức khỏe - Hạnh phúc - Thành công!",
+      "Ước gì được nấy nhé!",
+      "Năm mới tuổi mới, niềm vui mới!",
+      "Sinh nhật vui vẻ và ngọt ngào!",
+      "Cuộc sống tràn đầy yêu thương 💖",
+      "Chúc mọi điều tốt đẹp nhất đến với bạn!",
+      "Hãy luôn là chính bạn tuyệt vời!"
+    ];
+
+    const maxBlessings = 150;
+    const active = [];
+
+    function createFallingBlessing() {
+      if (active.length >= maxBlessings) return;
+
+      const el = document.createElement("div");
+      el.className = "blessing";
+      el.textContent = blessings[Math.floor(Math.random() * blessings.length)];
+      document.body.appendChild(el);
+
+      const startX = Math.random() * (window.innerWidth - 300);
+      const duration = 4 + Math.random() * 2.5;
+
+      el.style.left = `${startX}px`;
+      el.style.top = `-50px`;
+      el.style.opacity = 1;
+
+      requestAnimationFrame(() => {
+        el.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+        el.style.transform = `translateY(${window.innerHeight + 100}px)`;
+        el.style.opacity = 0;
+      });
+
+      active.push(el);
+
+      setTimeout(() => {
+        el.remove();
+        const index = active.indexOf(el);
+        if (index !== -1) active.splice(index, 1);
+      }, duration * 1000 + 500);
+    }
+
+    setInterval(createFallingBlessing, 50); // rơi nhanh và đều
+  </script>
+</body>
+</html>
